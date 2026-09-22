@@ -16,9 +16,8 @@ A Streamlit application that generates a short natural-language description for 
 - Streamlit
 - A CPU-compatible TensorFlow installation, or a configured GPU for faster inference
 
-The saved model and vocabulary are already included in this repository:
+The saved vocabulary are already included in this repository:
 
-- `image_description_model.keras` - trained caption-generation model
 - `vocab.pkl` - vocabulary used by the text vectorizer
 
 ## Installation

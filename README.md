@@ -2,6 +2,10 @@
 
 A Streamlit application that generates a short natural-language description for an uploaded image. The app uses a TensorFlow image-captioning model trained on the Flickr8k dataset.
 
+## Live demo
+
+Try the deployed application here: **[Image Insight Studio](https://imagedescriptionmodel.streamlit.app/)**
+
 ## Features
 
 - Upload a JPG, JPEG, or PNG image.

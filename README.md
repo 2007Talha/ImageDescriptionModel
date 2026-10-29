@@ -53,6 +53,16 @@ streamlit run app.py
 
 Streamlit will print a local URL, normally `http://localhost:8501`. Open that URL in a browser, upload an image, and wait for the generated description.
 
+## Deploy on Streamlit Community Cloud
+
+The saved model is tracked with Git LFS because the `.keras` file is larger than GitHub's regular file limit. Push the repository with Git LFS installed, then create a Streamlit Community Cloud app using:
+
+- **Repository:** `2007Talha/ImageDescriptionModel`
+- **Branch:** `main`
+- **Main file path:** `app.py`
+
+The app loads `image_description_model.keras` with `tf.keras.models.load_model(...)` and reads `vocab.pkl` from the repository root. Both files must be available to the deployed app.
+
 ## Project structure
 
 ```text

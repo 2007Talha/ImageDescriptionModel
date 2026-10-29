@@ -2,6 +2,10 @@
 
 A Streamlit application that generates a short natural-language description for an uploaded image. The app uses a TensorFlow image-captioning model trained on the Flickr8k dataset.
 
+## Live demo
+
+Try the deployed application here: **[Image Insight Studio](https://imagedescriptionmodel.streamlit.app/)**
+
 ## Features
 
 - Upload a JPG, JPEG, or PNG image.
@@ -52,6 +56,16 @@ streamlit run app.py
 ```
 
 Streamlit will print a local URL, normally `http://localhost:8501`. Open that URL in a browser, upload an image, and wait for the generated description.
+
+## Deploy on Streamlit Community Cloud
+
+The saved model is tracked with Git LFS because the `.keras` file is larger than GitHub's regular file limit. Push the repository with Git LFS installed, then create a Streamlit Community Cloud app using:
+
+- **Repository:** `2007Talha/ImageDescriptionModel`
+- **Branch:** `main`
+- **Main file path:** `app.py`
+
+The app loads `image_description_model.keras` with `tf.keras.models.load_model(...)` and reads `vocab.pkl` from the repository root. Both files must be available to the deployed app.
 
 ## Project structure
 

@@ -12,12 +12,8 @@ st.set_page_config(page_title="Image Insight Studio", page_icon="🖼️", layou
 
 VOCAB_SIZE = 10000
 MAX_LENGTH = 32
-MODEL_CANDIDATES = [
-    "image_description_model-30k.keras",
-    "image_description_model.keras",
-    "image_captioning_model.keras",
-]
-VOCAB_CANDIDATES = ["vocab1.pkl", "vocab.pkl"]
+MODEL_CANDIDATES = ["image_description_model-30k.keras"]
+VOCAB_CANDIDATES = ["vocab1.pkl"]
 
 st.markdown(
     """
@@ -142,7 +138,7 @@ def load_assets():
         name="caption_decoder",
     )
 
-    return model, vectorizer, int_to_word, image_encoder, decoder
+    return model, vectorizer, int_to_word, image_encoder, decoder, model_path.name, vocab_path.name
 
 
 def preprocess_pil_image(pil_image):
@@ -203,10 +199,11 @@ model_ready = False
 model_error = None
 
 try:
-    model, vectorizer, int_to_word, image_encoder, decoder = load_assets()
+    model, vectorizer, int_to_word, image_encoder, decoder, model_name, vocab_name = load_assets()
     tf.keras.backend.set_floatx("float32")
     model_ready = True
     model_status.success("✅ Model loaded and ready for inference.")
+    st.caption(f"Using `{model_name}` with `{vocab_name}`")
 except Exception as exc:
     model_error = exc
     model_status.warning(

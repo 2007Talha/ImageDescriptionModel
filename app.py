@@ -12,7 +12,12 @@ st.set_page_config(page_title="Image Insight Studio", page_icon="🖼️", layou
 
 VOCAB_SIZE = 10000
 MAX_LENGTH = 32
-MODEL_CANDIDATES = ["image_description_model.keras", "image_captioning_model.keras"]
+MODEL_CANDIDATES = [
+    "image_description_model-30k.keras",
+    "image_description_model.keras",
+    "image_captioning_model.keras",
+]
+VOCAB_CANDIDATES = ["vocab1.pkl", "vocab.pkl"]
 
 st.markdown(
     """
@@ -97,9 +102,12 @@ def load_assets():
 
     model = tf.keras.models.load_model(model_path)
 
-    vocab_path = Path.cwd() / "vocab.pkl"
-    if not vocab_path.exists():
-        raise FileNotFoundError("vocab.pkl was not found in the project folder.")
+    vocab_path = next(
+        (Path.cwd() / name for name in VOCAB_CANDIDATES if (Path.cwd() / name).exists()),
+        None,
+    )
+    if vocab_path is None:
+        raise FileNotFoundError("No supported vocabulary file was found in the project folder.")
 
     with vocab_path.open("rb") as file:
         vocab = pickle.load(file)
@@ -202,7 +210,7 @@ try:
 except Exception as exc:
     model_error = exc
     model_status.warning(
-        "⚠️ Model assets could not be loaded. Add the saved `.keras` model and `vocab.pkl` in this folder to enable captions."
+        "⚠️ Model assets could not be loaded. Add the saved `.keras` model and vocabulary file in this folder to enable captions."
     )
 
 left_col, right_col = st.columns([1.2, 1], gap="large")

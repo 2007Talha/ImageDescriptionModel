@@ -22,7 +22,7 @@ Try the deployed application here: **[Image Insight Studio](https://imagedescrip
 
 The saved vocabulary are already included in this repository:
 
-- `vocab.pkl` - vocabulary used by the text vectorizer
+- `vocab1.pkl` - vocabulary used by the text vectorizer
 
 ## Installation
 
@@ -65,15 +65,15 @@ The saved model is tracked with Git LFS because the `.keras` file is larger than
 - **Branch:** `main`
 - **Main file path:** `app.py`
 
-The app loads `image_description_model.keras` with `tf.keras.models.load_model(...)` and reads `vocab.pkl` from the repository root. Both files must be available to the deployed app.
+The app loads `image_description_model-30k.keras` with `tf.keras.models.load_model(...)` and reads `vocab1.pkl` from the repository root. Both files must be available to the deployed app.
 
 ## Project structure
 
 ```text
 .
 ├── app.py                         # Streamlit inference application
-├── image_description_model.keras  # Saved TensorFlow model
-├── vocab.pkl                      # Saved model vocabulary
+├── image_description_model-30k.keras # Saved TensorFlow model
+├── vocab1.pkl                        # Saved model vocabulary
 ├── ImageDescriptionModel.ipynb    # Training and experimentation notebook
 ├── imagedescriptionmodel.py       # Python version of the training workflow
 ├── requirements.txt               # Python dependencies
@@ -85,7 +85,7 @@ The app loads `image_description_model.keras` with `tf.keras.models.load_model(.
 1. The uploaded image is converted to RGB, resized to `224 x 224`, and normalized to values between `0` and `1`.
 2. The saved model predicts the next word from the current partial caption.
 3. Generation begins with `startseq` and stops at `endseq` or after the maximum sequence length is reached.
-4. The generated tokens are converted back to words using `vocab.pkl`.
+4. The generated tokens are converted back to words using `vocab1.pkl`.
 
 The model and vocabulary are cached after the first load so later predictions in the same Streamlit session start faster.
 
@@ -94,8 +94,8 @@ The model and vocabulary are cached after the first load so later predictions in
 The training workflow is documented in `ImageDescriptionModel.ipynb` and `imagedescriptionmodel.py`. It downloads the Flickr8k dataset with `kagglehub`, preprocesses the captions, trains the model, and saves:
 
 ```text
-image_description_model.keras
-vocab.pkl
+image_description_model-30k.keras
+vocab1.pkl
 ```
 
 Run the notebook or script in an environment with the training dependencies installed. Retraining may require substantial memory and is faster with a compatible GPU.
@@ -104,7 +104,7 @@ Run the notebook or script in an environment with the training dependencies inst
 
 ### Model assets cannot be loaded
 
-Make sure `image_description_model.keras` and `vocab.pkl` are in the same directory as `app.py`, then start Streamlit from that directory.
+Make sure `image_description_model-30k.keras` and `vocab1.pkl` are in the same directory as `app.py`, then start Streamlit from that directory.
 
 ### TensorFlow installation fails
 
